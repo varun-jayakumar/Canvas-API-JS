@@ -1,8 +1,10 @@
+//advanced animation
+
 const canvas=document.getElementById("canvas");
 //console.dir(canvas);
 
 const ctx =canvas.getContext('2d');
-//the getContext returns the 2d drawing API object
+//getContext returns the 2d drawing API object
 //we can modify the property to change behavior
 //what is there in objects prototype is inheritance
 let particleArray=[];
@@ -33,10 +35,7 @@ ctx.lineWidth=1;
 //ctx.fill();
 //ctx.stroke();
 
-const mouse = {
-  x: null,
-  y:null,
-}
+
 
 canvas.addEventListener('click',function(event){
   ctx.beginPath();
@@ -53,12 +52,7 @@ canvas.addEventListener("mousemove", function(event){
   ctx.beginPath();
   mouse.x=event.clientX;
   mouse.y=event.clientY;
-  //particleArray=[];
   createOneParticlesSet();
-  //animate();
- 
- 
-  //drawCircle();
 })
 
 class Particle {
@@ -147,27 +141,42 @@ ctx.stroke();
 
 function animate(){
  ctx.clearRect(0,0, canvas.width, canvas.height);
- ctx.fillStyle='rgba(0,0,0,0.02)';
- ctx.fillRect(0,0,canvas.width,canvas.height);
+ //ctx.fillStyle='rgba(0,0,0,0.02)';
+//ctx.fillRect(0,0,canvas.width,canvas.height);
  requestAnimationFrame(animate);
  updateDrawParticles();
 hue++;
-
- // drawCircle();
-  //class function we pass it as argument doing this will create a loop
 }
 
 
+//mouse object
+let mouse = {
+  x: null,
+  y:null,
+}
+//update mouse object when we move the cursor
+canvas.addEventListener("mousemove", (e)=>{
+  mouse.x=e.clientX;
+  mouse.y=e.clientY;
+})
 
 
 let drawCircle= () =>{
- ctx.clearRect(0,0, canvas.width/2, canvas.height);
-  ctx.arc(mouse.x, mouse.y, 30, 0, Math.PI*2);
-  ctx.fill();
-  requestAnimationFrame(drawCircle);
+//fillStyle to white
+ctx.fillStyle="white";
+//clear left half of the canvas
+ctx.clearRect(0,0, canvas.width, canvas.height);
+//draw an arc at position of my mouse pointer
+ctx.arc(mouse.x, mouse.y, 30, 0, Math.PI*2);
+//fill() to draw a circle
+ctx.fill();
+//call the function drawCircle() before repainting the screen
+requestAnimationFrame(drawCircle);
 }
 
 
 
-//animate();
 drawCircle();
+
+//animate();
+
